@@ -15,11 +15,11 @@ const toPng = async url => {
     return _navigateAndExecute(
         url,
         async (page, fileName) => {
-            // await page.setViewport({
-            //     width: 1600,
-            //     height: 900,
-            //     deviceScaleFactor: 1
-            // });
+            await page.setViewport({
+                width: 1600,
+                height: 900,
+                deviceScaleFactor: 1
+            });
             await page.screenshot({ path: fileName, format: "A4" });
         },
         ".png",
@@ -36,9 +36,7 @@ const _navigateAndExecute = async (
     const fileName = generateFileNameByUrl(url, fileLocation, fileExtention);
 
     const browser = await puppeteer.launch({
-        headless: false,
-        slowMo: 80,
-        args: ["--window-size=1920,1080"]
+        args: ["--no-sandbox", "--disable-setuid-sandbox"]
     });
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: "networkidle2" });

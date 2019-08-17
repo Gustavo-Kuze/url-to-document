@@ -1,1 +1,1 @@
-web: npm run installdeps
+web: npm start
