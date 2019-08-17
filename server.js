@@ -1,29 +1,17 @@
 const express = require("express");
-const fs = require("fs");
+const { convertToPdf, convertToPng } = require("./src/controllers/document");
+const { home } = require("./src/controllers/main");
 const app = express();
 
-const { toPdf } = require("./src/documentFormatter");
+app.use(express.static(__dirname + "/public"));
 
-app.get("/pdf", (req, res) => {
-    if (req.query.url) {
-        toPdf(req.query.url)
-            .then(fileName => {
-                res.download(fileName, () => {
-                    fs.unlinkSync(fileName);
-                });
-            })
-            .catch(err =>
-                res.json({
-                    fileName: null,
-                    error: err
-                })
-            );
-    } else {
-        res.json({
-            erro:
-                "Você precisa fornecer a URL do site que deseja tranformar em PDF"
-        });
-    }
-});
+app.get("/", home);
 
-app.listen(3332, () => console.log("running..."));
+app.get("/pdf", convertToPdf);
+
+app.get("/png", convertToPng);
+
+const port = 3332;
+app.listen(port, () =>
+    console.log(`A API está sendo executada na porta${port}...`)
+);
