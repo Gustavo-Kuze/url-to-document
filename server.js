@@ -11,7 +11,7 @@ app.get("/pdf", convertToPdf);
 
 app.get("/png", convertToPng);
 
-const port = 3332;
+const port = process.env.PORT || 3332;
 app.listen(port, () =>
     console.log(`A API está sendo executada na porta${port}...`)
 );
