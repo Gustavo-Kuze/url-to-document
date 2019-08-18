@@ -18,4 +18,4 @@ Currently, you can get the current document formats:
 Navigate to the following link using a browser:
 [https://url-to-document.herokuapp.com/png?url=https://www.mercadolivre.com.br](https://url-to-document.herokuapp.com/png?url=https://www.mercadolivre.com.br)
 
-the result should be a png download result.
+the result should be a png download.
