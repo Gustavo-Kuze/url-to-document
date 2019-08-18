@@ -1,17 +1,24 @@
 const puppeteer = require("puppeteer");
 const { generateFileNameByUrl } = require("./fileSystem");
+const fs = require("fs");
 
 const toPdf = async url => {
+    const path = "/../../PDFs";
+    if (!fs.existsSync(__dirname + path)) fs.mkdirSync(__dirname + path);
+
     return _navigateAndExecute(
         url,
         async (page, fileName) =>
             await page.pdf({ path: fileName, format: "A4" }),
         ".pdf",
-        "/../../PDFs/"
+        path
     );
 };
 
 const toPng = async url => {
+    const path = "/../../images";
+    if (!fs.existsSync(__dirname + path)) fs.mkdirSync(__dirname + path);
+
     return _navigateAndExecute(
         url,
         async (page, fileName) => {
@@ -23,7 +30,7 @@ const toPng = async url => {
             await page.screenshot({ path: fileName, format: "A4" });
         },
         ".png",
-        "/../../images/"
+        path
     );
 };
 
